@@ -1,0 +1,1 @@
+{"version":3,"file":"init.js","sourceRoot":"","sources":["../src/init.ts"],"names":[],"mappings":";;;AAAA,4EAA4C;AAE5C,IAAI,wBAAY,EAAE,CAAC","sourcesContent":["import ContactForm7 from './contact-form-7';\n\nnew ContactForm7();\n"]}

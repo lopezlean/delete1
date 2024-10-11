@@ -1,0 +1,1 @@
+{"version":3,"file":"init.js","sourceRoot":"","sources":["../src/init.ts"],"names":[],"mappings":";;;AAAA,8EAA+C;AAE/C,IAAI,yBAAc,EAAE,CAAC","sourcesContent":["import ElementorForms from './elementor-forms';\n\nnew ElementorForms();\n"]}

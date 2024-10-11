@@ -1,0 +1,1 @@
+{"version":3,"file":"init.js","sourceRoot":"","sources":["../src/init.ts"],"names":[],"mappings":";;;AAAA,8DAA+B;AAE/B,IAAI,iBAAM,EAAE,CAAC","sourcesContent":["import WpForm from './wp-form';\n\nnew WpForm();\n"]}

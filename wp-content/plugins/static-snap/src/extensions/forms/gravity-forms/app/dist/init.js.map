@@ -1,0 +1,1 @@
+{"version":3,"file":"init.js","sourceRoot":"","sources":["../src/init.ts"],"names":[],"mappings":";;;AAAA,0EAA2C;AAE3C,IAAI,uBAAY,EAAE,CAAC","sourcesContent":["import GravityForms from './gravity-forms';\n\nnew GravityForms();\n"]}

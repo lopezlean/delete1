@@ -1,63 +1,27 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 696:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.ActionLinks = void 0;
-const ActionLinks = ({
-  image,
-  alt,
-  title,
-  message,
-  button,
-  link
-}) => {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "hello_elementor__action_links"
-  }, /*#__PURE__*/React.createElement("img", {
-    src: image,
-    alt: alt
-  }), /*#__PURE__*/React.createElement("p", {
-    className: "hello_elementor__action_links__title"
-  }, title), /*#__PURE__*/React.createElement("p", {
-    className: "hello_elementor__action_links__message"
-  }, message), /*#__PURE__*/React.createElement("a", {
-    className: "components-button is-secondary",
-    href: link,
-    target: "_blank",
-    rel: "noreferrer"
-  }, button));
-};
-exports.ActionLinks = ActionLinks;
-
-/***/ }),
-
-/***/ 19:
+/***/ "./assets/dev/js/admin/pages/settings-page.js":
+/*!****************************************************!*\
+  !*** ./assets/dev/js/admin/pages/settings-page.js ***!
+  \****************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(994);
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.SettingsPage = void 0;
-var _react = __webpack_require__(609);
-var _notices = __webpack_require__(692);
-var _data = __webpack_require__(143);
-var _i18n = __webpack_require__(723);
-var _api = _interopRequireDefault(__webpack_require__(863));
-var _components = __webpack_require__(427);
-var _settingsPanel = __webpack_require__(425);
-var _actionLinksPanel = __webpack_require__(442);
+var _react = __webpack_require__(/*! react */ "react");
+var _notices = __webpack_require__(/*! @wordpress/notices */ "@wordpress/notices");
+var _data = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+var _i18n = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+var _api = _interopRequireDefault(__webpack_require__(/*! @wordpress/api */ "@wordpress/api"));
+var _components = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+var _settingsPanel = __webpack_require__(/*! ./../panels/settings-panel.js */ "./assets/dev/js/admin/panels/settings-panel.js");
 const Notices = () => {
   const notices = (0, _data.useSelect)(select => select(_notices.store).getNotices().filter(notice => 'snackbar' === notice.type), []);
   const {
@@ -72,7 +36,6 @@ const Notices = () => {
 const SETTINGS = {
   DESCRIPTION_META_TAG: '_description_meta_tag',
   SKIP_LINK: '_skip_link',
-  HEADER_FOOTER: '_header_footer',
   PAGE_TITLE: '_page_title',
   HELLO_STYLE: '_hello_style',
   HELLO_THEME: '_hello_theme'
@@ -146,7 +109,7 @@ const SettingsPage = () => {
   }), /*#__PURE__*/React.createElement(_components.Button, {
     isPrimary: true,
     onClick: saveSettings
-  }, (0, _i18n.__)('Save Settings', 'hello-elementor'))), /*#__PURE__*/React.createElement(_actionLinksPanel.ActionLinksPanel, null)), /*#__PURE__*/React.createElement("div", {
+  }, (0, _i18n.__)('Save Settings', 'hello-elementor')))), /*#__PURE__*/React.createElement("div", {
     className: "hello_elementor__notices"
   }, /*#__PURE__*/React.createElement(Notices, null)));
 };
@@ -154,63 +117,10 @@ exports.SettingsPage = SettingsPage;
 
 /***/ }),
 
-/***/ 442:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.ActionLinksPanel = void 0;
-var _i18n = __webpack_require__(723);
-var _actionLinks = __webpack_require__(696);
-const actionLinks = {
-  'install-elementor': {
-    image: helloAdminData.templateDirectoryURI + '/assets/images/elementor.svg',
-    alt: (0, _i18n.__)('Elementor', 'hello-elementor'),
-    title: (0, _i18n.__)('Install Elementor', 'hello-elementor'),
-    message: (0, _i18n.__)('Create cross-site header & footer using Elementor.', 'hello-elementor'),
-    button: (0, _i18n.__)('Install Elementor', 'hello-elementor'),
-    link: helloAdminData.actionLinkURL
-  },
-  'activate-elementor': {
-    image: helloAdminData.templateDirectoryURI + '/assets/images/elementor.svg',
-    alt: (0, _i18n.__)('Elementor', 'hello-elementor'),
-    title: (0, _i18n.__)('Activate Elementor', 'hello-elementor'),
-    message: (0, _i18n.__)('Create cross-site header & footer using Elementor.', 'hello-elementor'),
-    button: (0, _i18n.__)('Activate Elementor', 'hello-elementor'),
-    link: helloAdminData.actionLinkURL
-  },
-  'activate-header-footer-experiment': {
-    image: helloAdminData.templateDirectoryURI + '/assets/images/elementor.svg',
-    alt: (0, _i18n.__)('Elementor', 'hello-elementor'),
-    title: (0, _i18n.__)('Style using Elementor', 'hello-elementor'),
-    message: (0, _i18n.__)('Design your cross-site header & footer from Elementor’s "Site Settings" panel.', 'hello-elementor'),
-    button: (0, _i18n.__)('Activate header & footer experiment', 'hello-elementor'),
-    link: helloAdminData.actionLinkURL
-  },
-  'style-header-footer': {
-    image: helloAdminData.templateDirectoryURI + '/assets/images/elementor.svg',
-    alt: (0, _i18n.__)('Elementor', 'hello-elementor'),
-    title: (0, _i18n.__)('Style cross-site header & footer', 'hello-elementor'),
-    message: (0, _i18n.__)('Customize your cross-site header & footer from Elementor’s "Site Settings" panel.', 'hello-elementor'),
-    button: (0, _i18n.__)('Start Designing', 'hello-elementor'),
-    link: helloAdminData.actionLinkURL
-  }
-};
-const ActionLinksPanel = () => {
-  if (!helloAdminData.actionLinkType) {
-    return;
-  }
-  return /*#__PURE__*/React.createElement(_actionLinks.ActionLinks, actionLinks[helloAdminData.actionLinkType]);
-};
-exports.ActionLinksPanel = ActionLinksPanel;
-
-/***/ }),
-
-/***/ 425:
+/***/ "./assets/dev/js/admin/panels/settings-panel.js":
+/*!******************************************************!*\
+  !*** ./assets/dev/js/admin/panels/settings-panel.js ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -220,8 +130,8 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.SettingsPanel = void 0;
-var _i18n = __webpack_require__(723);
-var _components = __webpack_require__(427);
+var _i18n = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+var _components = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 const SettingsPanel = ({
   SETTINGS,
   settingsData,
@@ -252,22 +162,13 @@ const SettingsPanel = ({
   }), /*#__PURE__*/React.createElement("code", {
     className: "code-example"
   }, " <a class=\"skip-link screen-reader-text\" href=\"#content\"> Skip to content </a> "), /*#__PURE__*/React.createElement(_components.ToggleControl, {
-    label: (0, _i18n.__)('Disable cross-site header & footer', 'hello-elementor'),
-    help: (0, _i18n.__)('Remove the header & footer sections from all pages, and their CSS/JS files.', 'hello-elementor'),
-    checked: !!settingsData[SETTINGS.HEADER_FOOTER] || false,
-    onChange: value => updateSettings(SETTINGS.HEADER_FOOTER, value)
-  }), /*#__PURE__*/React.createElement("code", {
-    className: "code-example"
-  }, " <header id=\"site-header\" class=\"site-header\"> ... </header> "), /*#__PURE__*/React.createElement("code", {
-    className: "code-example"
-  }, " <footer id=\"site-footer\" class=\"site-footer\"> ... </footer> "), /*#__PURE__*/React.createElement(_components.ToggleControl, {
     label: (0, _i18n.__)('Disable page title', 'hello-elementor'),
     help: (0, _i18n.__)('Remove the section above the content that contains the main heading of the page.', 'hello-elementor'),
     checked: !!settingsData[SETTINGS.PAGE_TITLE] || false,
     onChange: value => updateSettings(SETTINGS.PAGE_TITLE, value)
   }), /*#__PURE__*/React.createElement("code", {
     className: "code-example"
-  }, " <div class=\"page-header\"> <h1 class=\"entry-title\"> Post title </h1> </div> "), /*#__PURE__*/React.createElement(_components.ToggleControl, {
+  }, " <header class=\"page-header\"> <h1 class=\"entry-title\"> Post title </h1> </header> "), /*#__PURE__*/React.createElement(_components.ToggleControl, {
     label: (0, _i18n.__)('Unregister Hello style.css', 'hello-elementor'),
     help: (0, _i18n.__)("Disable Hello theme's style.css file which contains CSS reset rules for unified cross-browser view.", 'hello-elementor'),
     checked: !!settingsData[SETTINGS.HELLO_STYLE] || false,
@@ -287,7 +188,10 @@ exports.SettingsPanel = SettingsPanel;
 
 /***/ }),
 
-/***/ 374:
+/***/ "./assets/dev/js/admin/hello-admin.scss":
+/*!**********************************************!*\
+  !*** ./assets/dev/js/admin/hello-admin.scss ***!
+  \**********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -297,7 +201,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 609:
+/***/ "react":
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
 /***/ ((module) => {
 
 "use strict";
@@ -305,7 +212,10 @@ module.exports = window["React"];
 
 /***/ }),
 
-/***/ 863:
+/***/ "@wordpress/api":
+/*!*****************************!*\
+  !*** external ["wp","api"] ***!
+  \*****************************/
 /***/ ((module) => {
 
 "use strict";
@@ -313,7 +223,10 @@ module.exports = window["wp"]["api"];
 
 /***/ }),
 
-/***/ 427:
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -321,7 +234,10 @@ module.exports = window["wp"]["components"];
 
 /***/ }),
 
-/***/ 143:
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
 /***/ ((module) => {
 
 "use strict";
@@ -329,7 +245,10 @@ module.exports = window["wp"]["data"];
 
 /***/ }),
 
-/***/ 87:
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
 /***/ ((module) => {
 
 "use strict";
@@ -337,7 +256,10 @@ module.exports = window["wp"]["element"];
 
 /***/ }),
 
-/***/ 723:
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
 /***/ ((module) => {
 
 "use strict";
@@ -345,7 +267,10 @@ module.exports = window["wp"]["i18n"];
 
 /***/ }),
 
-/***/ 692:
+/***/ "@wordpress/notices":
+/*!*********************************!*\
+  !*** external ["wp","notices"] ***!
+  \*********************************/
 /***/ ((module) => {
 
 "use strict";
@@ -353,12 +278,15 @@ module.exports = window["wp"]["notices"];
 
 /***/ }),
 
-/***/ 994:
+/***/ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
+  \**********************************************************************/
 /***/ ((module) => {
 
-function _interopRequireDefault(e) {
-  return e && e.__esModule ? e : {
-    "default": e
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
   };
 }
 module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
@@ -408,11 +336,14 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
+/*!********************************************!*\
+  !*** ./assets/dev/js/admin/hello-admin.js ***!
+  \********************************************/
 
 
-__webpack_require__(374);
-var _element = __webpack_require__(87);
-var _settingsPage = __webpack_require__(19);
+__webpack_require__(/*! ./hello-admin.scss */ "./assets/dev/js/admin/hello-admin.scss");
+var _element = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+var _settingsPage = __webpack_require__(/*! ./pages/settings-page.js */ "./assets/dev/js/admin/pages/settings-page.js");
 const App = () => {
   return /*#__PURE__*/React.createElement(_settingsPage.SettingsPage, null);
 };
@@ -426,3 +357,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /******/ })()
 ;
+//# sourceMappingURL=hello-admin.js.map

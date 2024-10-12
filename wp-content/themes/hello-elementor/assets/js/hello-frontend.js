@@ -1,6 +1,9 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 var __webpack_exports__ = {};
+/*!**************************************************!*\
+  !*** ./assets/dev/js/frontend/hello-frontend.js ***!
+  \**************************************************/
 
 
 class elementorHelloThemeHandler {
@@ -12,6 +15,8 @@ class elementorHelloThemeHandler {
   initSettings() {
     this.settings = {
       selectors: {
+        header: 'header.site-header',
+        footer: 'footer.site-footer',
         menuToggle: '.site-header .site-navigation-toggle',
         menuToggleHolder: '.site-header .site-navigation-toggle-holder',
         dropdownMenu: '.site-header .site-navigation-dropdown'
@@ -20,50 +25,57 @@ class elementorHelloThemeHandler {
   }
   initElements() {
     this.elements = {
-      window,
-      menuToggle: document.querySelector(this.settings.selectors.menuToggle),
-      menuToggleHolder: document.querySelector(this.settings.selectors.menuToggleHolder),
-      dropdownMenu: document.querySelector(this.settings.selectors.dropdownMenu)
+      $window: jQuery(window),
+      $document: jQuery(document),
+      $header: jQuery(this.settings.selectors.header),
+      $footer: jQuery(this.settings.selectors.footer),
+      $menuToggle: jQuery(this.settings.selectors.menuToggle),
+      $menuToggleHolder: jQuery(this.settings.selectors.menuToggleHolder),
+      $dropdownMenu: jQuery(this.settings.selectors.dropdownMenu)
     };
   }
   bindEvents() {
-    var _this$elements$menuTo;
-    if (!this.elements.menuToggleHolder || (_this$elements$menuTo = this.elements.menuToggleHolder) !== null && _this$elements$menuTo !== void 0 && _this$elements$menuTo.classList.contains('hide')) {
-      return;
-    }
-    this.elements.menuToggle.addEventListener('click', () => this.handleMenuToggle());
-    this.elements.dropdownMenu.querySelectorAll('.menu-item-has-children > a').forEach(anchorElement => anchorElement.addEventListener('click', event => this.handleMenuChildren(event)));
+    this.elements.$menuToggle.on('click', () => this.handleMenuToggle()).on('keyup', event => {
+      const ENTER_KEY = 13,
+        SPACE_KEY = 32;
+      if (ENTER_KEY === event.keyCode || SPACE_KEY === event.keyCode) {
+        event.currentTarget.click();
+      }
+    });
+    this.elements.$dropdownMenu.on('click', '.menu-item-has-children > a', this.handleMenuChildren);
   }
   closeMenuItems() {
-    this.elements.menuToggleHolder.classList.remove('elementor-active');
-    this.elements.window.removeEventListener('resize', () => this.closeMenuItems());
+    this.elements.$menuToggleHolder.removeClass('elementor-active');
+    this.elements.$window.off('resize', () => this.closeMenuItems());
   }
   handleMenuToggle() {
-    const isDropdownVisible = !this.elements.menuToggleHolder.classList.contains('elementor-active');
-    this.elements.menuToggle.setAttribute('aria-expanded', isDropdownVisible);
-    this.elements.dropdownMenu.setAttribute('aria-hidden', !isDropdownVisible);
-    this.elements.dropdownMenu.inert = !isDropdownVisible;
-    this.elements.menuToggleHolder.classList.toggle('elementor-active', isDropdownVisible);
+    const isDropdownVisible = !this.elements.$menuToggleHolder.hasClass('elementor-active');
+    this.elements.$menuToggle.attr('aria-expanded', isDropdownVisible);
+    this.elements.$dropdownMenu.attr('aria-hidden', !isDropdownVisible);
+    this.elements.$menuToggleHolder.toggleClass('elementor-active', isDropdownVisible);
 
     // Always close all sub active items.
-    this.elements.dropdownMenu.querySelectorAll('.elementor-active').forEach(item => item.classList.remove('elementor-active'));
+    this.elements.$dropdownMenu.find('.elementor-active').removeClass('elementor-active');
     if (isDropdownVisible) {
-      this.elements.window.addEventListener('resize', () => this.closeMenuItems());
+      this.elements.$window.on('resize', () => this.closeMenuItems());
     } else {
-      this.elements.window.removeEventListener('resize', () => this.closeMenuItems());
+      this.elements.$window.off('resize', () => this.closeMenuItems());
     }
   }
   handleMenuChildren(event) {
-    const anchor = event.currentTarget;
-    const parentLi = anchor.parentElement;
-    if (!(parentLi !== null && parentLi !== void 0 && parentLi.classList)) {
-      return;
+    const $anchor = jQuery(event.currentTarget),
+      $parentLi = $anchor.parent('li'),
+      isSubmenuVisible = $parentLi.hasClass('elementor-active');
+    if (!isSubmenuVisible) {
+      $parentLi.addClass('elementor-active');
+    } else {
+      $parentLi.removeClass('elementor-active');
     }
-    parentLi.classList.toggle('elementor-active');
   }
 }
-document.addEventListener('DOMContentLoaded', () => {
+jQuery(() => {
   new elementorHelloThemeHandler();
 });
 /******/ })()
 ;
+//# sourceMappingURL=hello-frontend.js.map

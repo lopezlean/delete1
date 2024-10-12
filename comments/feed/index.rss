@@ -7,11 +7,11 @@
 	>
 <channel>
 	<title>
-	Comments for quiet-eagle-8f19ae.instawp.xyz	</title>
-	<atom:link href="https://lopezlean.github.io/delete1/comments/feed/index.rss" rel="self" type="application/rss+xml" />
-	<link>https://lopezlean.github.io/delete1</link>
+	Comentarios en Playground	</title>
+	<atom:link href="/comments/feed/index.rss" rel="self" type="application/rss+xml" />
+	<link>/</link>
 	<description></description>
-	<lastBuildDate>Fri, 11 Oct 2024 07:52:33 +0000</lastBuildDate>
+	<lastBuildDate>Tue, 31 Oct 2023 13:33:02 +0000</lastBuildDate>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
@@ -19,19 +19,19 @@
 	<generator>https://wordpress.org/?v=6.6.2</generator>
 	<item>
 		<title>
-		Comment on Hello world! by A WordPress Commenter		</title>
-		<link>https://lopezlean.github.io/delete1/hello-world/#comment-1</link>
+		Comentario en ¡Hola mundo! por Un comentarista de WordPress		</title>
+		<link>/hola-mundo/#comment-1</link>
 
-		<dc:creator><![CDATA[A WordPress Commenter]]></dc:creator>
-		<pubDate>Fri, 11 Oct 2024 07:52:33 +0000</pubDate>
-		<guid isPermaLink="false">https://lopezlean.github.io/delete1/?p=1#comment-1</guid>
+		<dc:creator><![CDATA[Un comentarista de WordPress]]></dc:creator>
+		<pubDate>Tue, 31 Oct 2023 13:33:02 +0000</pubDate>
+		<guid isPermaLink="false">https://localhost/?p=1#comment-1</guid>
 
-					<description><![CDATA[Hi, this is a comment.
-To get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard.
-Commenter avatars come from &lt;a href=&quot;https://en.gravatar.com/&quot;&gt;Gravatar&lt;/a&gt;.]]></description>
-			<content:encoded><![CDATA[<p>Hi, this is a comment.<br />
-To get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard.<br />
-Commenter avatars come from <a href="https://en.gravatar.com/">Gravatar</a>.</p>
+					<description><![CDATA[Hola, esto es un comentario.
+Para empezar a moderar, editar y borrar comentarios, por favor, visitá en el escritorio la pantalla de comentarios.
+Los avatares de los comentaristas provienen de &lt;a href=&quot;https://es.gravatar.com/&quot;&gt;Gravatar&lt;/a&gt;.]]></description>
+			<content:encoded><![CDATA[<p>Hola, esto es un comentario.<br />
+Para empezar a moderar, editar y borrar comentarios, por favor, visitá en el escritorio la pantalla de comentarios.<br />
+Los avatares de los comentaristas provienen de <a href="https://es.gravatar.com/">Gravatar</a>.</p>
 ]]></content:encoded>
 		
 			</item>

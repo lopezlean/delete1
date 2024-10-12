@@ -9,8 +9,8 @@
 
 <channel>
 	<title>quiet-eagle-8f19ae.instawp.xyz</title>
-	<atom:link href="/feed/index.rss" rel="self" type="application/rss+xml" />
-	<link>/</link>
+	<atom:link href="https://lopezlean.github.io/delete1/feed/index.rss" rel="self" type="application/rss+xml" />
+	<link>https://lopezlean.github.io/delete1</link>
 	<description></description>
 	<lastBuildDate>Fri, 11 Oct 2024 07:52:33 +0000</lastBuildDate>
 	<language>en-US</language>
@@ -21,20 +21,20 @@
 	<generator>https://wordpress.org/?v=6.6.2</generator>
 	<item>
 		<title>Hello world!</title>
-		<link>/hello-world/</link>
-					<comments>/hello-world/#comments</comments>
+		<link>https://lopezlean.github.io/delete1/hello-world/</link>
+					<comments>https://lopezlean.github.io/delete1/hello-world/#comments</comments>
 		
 		<dc:creator><![CDATA[vavabizini6982]]></dc:creator>
 		<pubDate>Fri, 11 Oct 2024 07:52:33 +0000</pubDate>
 				<category><![CDATA[Uncategorized]]></category>
-		<guid isPermaLink="false">/?p=1</guid>
+		<guid isPermaLink="false">https://lopezlean.github.io/delete1/?p=1</guid>
 
 					<description><![CDATA[Welcome to WordPress. This is your first post. Edit or delete it, then start writing!]]></description>
 										<content:encoded><![CDATA[
 <p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>
 ]]></content:encoded>
 					
-					<wfw:commentRss>/hello-world/feed/</wfw:commentRss>
+					<wfw:commentRss>https://lopezlean.github.io/delete1/hello-world/feed/</wfw:commentRss>
 			<slash:comments>1</slash:comments>
 		
 		

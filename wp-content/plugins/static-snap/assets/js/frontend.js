@@ -35,9 +35,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ FormBase)
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/frontend/app/src/constants.ts");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./src/frontend/app/src/constants.ts");
 
 
 
@@ -55,29 +55,61 @@ class FormBase {
     if (selector) {
       this.selector = selector;
     }
-    this.loadGoogleRecaptcha();
+    if (['powcaptcha', 'recaptcha'].includes(StaticSnapFrontendConfig.captcha_type)) {
+      if (StaticSnapFrontendConfig.captcha_type === 'recaptcha') {
+        this.loadGoogleRecaptcha();
+      } else if (StaticSnapFrontendConfig.captcha_type === 'powcaptcha') {
+        this.loadPowCaptcha();
+      }
+    }
     this.bindEvents();
     //this.bindPluginsEvents();
   }
   /**
+   *
    * This method is called when the form is submitted.
-   * @param e - The event object.
-   * @param form - The form element.
+   * @param e          - The event object.
+   * @param form       - The form element.
    * @param submitData - The data that will be sent to the server.
-   * @returns void
+   * @return void
    * @example
-   * onSubmit(e: Event, form: HTMLFormElement, submitData: any): void {
+   * onSubmit(e: Event, form: HTMLFormElement, submitData: any): void \{
    *  console.log('Form submitted', e, form, submitData);
-   * }
+   * \}
    * @example
    */
 
   /**
    * This method is called when an error occurs during form submission.
-   * @param e - The event object.
-   * @param form - The form element.
+   * @param e     - The event object.
+   * @param form  - The form element.
    * @param error - The error object.
    */
+
+  /**
+   * Get form settings
+   * @param responseData - The response data from the server.
+   * @return WebsiteFormSettings
+   */
+  getFormSettings = responseData => {
+    const defaultSettings = {
+      messages: {
+        error: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('An error occurred while submitting the form', 'static-snap'),
+        invalid: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Please enter a valid value.', 'static-snap'),
+        required: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('This field is required.', 'static-snap'),
+        success: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('The form was sent successfully.', 'static-snap')
+      }
+    };
+    if (!responseData.type || responseData.type !== 'item') {
+      return defaultSettings;
+    }
+
+    // merge default settings with response data
+    return {
+      ...defaultSettings,
+      ...responseData.data.websiteForm?.website_form_settings
+    };
+  };
 
   /**
    * Get notice message settings
@@ -85,10 +117,10 @@ class FormBase {
    */
   getNoticeMessageSettings = form => {
     const defaultMessageSettings = {
-      error_message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('An error occurred while submitting the form', 'static-snap'),
-      invalid_message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please enter a valid value.', 'static-snap'),
-      required_field_message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is required.', 'static-snap'),
-      success_message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('The form was sent successfully.', 'static-snap'),
+      error_message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('An error occurred while submitting the form', 'static-snap'),
+      invalid_message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Please enter a valid value.', 'static-snap'),
+      required_field_message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('This field is required.', 'static-snap'),
+      success_message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('The form was sent successfully.', 'static-snap'),
       type: 'message'
     };
     const messageSettings = form.dataset?.staticSnapFormNoticeSettings;
@@ -109,7 +141,7 @@ class FormBase {
 
     // if redirect type, we don't need to show any message. We will redirect to the URL
     if (messageSettings.type === 'redirect' && type === 'success' && messageSettings.redirect_url) {
-      window.location.href = messageSettings.redirect_url;
+      //window.location.href = messageSettings.redirect_url;
     }
     const messageMap = {
       error: messageSettings.error_message,
@@ -119,9 +151,17 @@ class FormBase {
     };
     return messageMap[type] || '';
   };
+  loadPowCaptcha = () => {
+    const script = document.createElement('script');
+    script.src = 'https://js.powcaptcha.com/widget.js';
+    script.async = true;
+    script.defer = true;
+    script.type = 'module';
+    document.head.appendChild(script);
+  };
   loadGoogleRecaptcha = () => {
     const script = document.createElement('script');
-    script.src = `https://www.google.com/recaptcha/api.js?render=${StaticSnapFrontendConfig.recaptcha_site_key}`;
+    script.src = `https://www.google.com/recaptcha/api.js?render=${StaticSnapFrontendConfig.captcha_site_key}`;
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
@@ -154,9 +194,52 @@ class FormBase {
       // remove all jQuery submit events
       this.unbindSubmitEvents(form);
       // add a new submit event
+
+      // if is powcaptcha, we need to add the powcaptcha widget
+      if (StaticSnapFrontendConfig.captcha_type === 'powcaptcha') {
+        const powcaptchaWidget = document.createElement('powcaptcha-widget');
+        powcaptchaWidget.setAttribute('data-app-id', StaticSnapFrontendConfig.captcha_site_key);
+        powcaptchaWidget.setAttribute('data-invisible', 'true');
+        form.appendChild(powcaptchaWidget);
+        this.bindPowCaptchaEvents(form, powcaptchaWidget);
+      }
       form.addEventListener('submit', e => this.submit(e, form));
       // mark form as initialized
       form.setAttribute('data-static-snap-initialized', 'true');
+    });
+  };
+  bindPowCaptchaEvents = (form, powcaptchaWidget) => {
+    let signalsReady = false;
+    let haveError = false;
+    const timeoutMs = 5000; // 5 seconds timeout to get signals
+
+    powcaptchaWidget.addEventListener('@powcaptcha/widget/error', function () {
+      if (haveError) {
+        return;
+      }
+      haveError = true;
+      console.error('Please check your PowCaptcha configuration.');
+    });
+    setTimeout(() => {
+      signalsReady = true;
+    }, timeoutMs);
+    async function resolveIfSignalsAreReady() {
+      try {
+        if (!signalsReady || powcaptchaWidget.isLoading() || powcaptchaWidget.isValidated() || haveError) {
+          return;
+        }
+        await powcaptchaWidget.execute();
+      } catch (e) {
+        console.error('PowCaptcha execution failed:', e);
+        haveError = true;
+      }
+    }
+
+    // watch form fields
+    const fields = form.querySelectorAll('input, textarea, select');
+    fields.forEach(field => {
+      field.addEventListener('focus', resolveIfSignalsAreReady);
+      field.addEventListener('keydown', resolveIfSignalsAreReady);
     });
   };
 
@@ -177,20 +260,25 @@ class FormBase {
       return;
     }
     form.querySelector(this.submitButtonSelector)?.setAttribute('disabled', 'disabled');
-    const submitFormDataWithGoogleRecaptcha = async () => {
+    const submitFormDataWithCaptcha = async () => {
       try {
-        const token = await grecaptcha.execute(StaticSnapFrontendConfig.recaptcha_site_key, {
-          action: 'submit'
-        });
+        let token = '';
+        if (StaticSnapFrontendConfig.captcha_type === 'powcaptcha') {
+          const powcaptchaWidget = form.querySelector('powcaptcha-widget');
+          token = (await powcaptchaWidget?.execute()) || '';
+        } else if (StaticSnapFrontendConfig.captcha_type === 'recaptcha') {
+          token = await grecaptcha.execute(StaticSnapFrontendConfig.captcha_site_key, {
+            action: 'submit'
+          });
+        }
         const formData = new FormData(form);
         // send form data to action URL as json
         const submitData = Object.fromEntries(formData);
         const response = await fetch(form.action, {
           body: JSON.stringify(submitData),
           headers: {
-            'Content-Type': 'application/json',
-            // recaptcha token
-            'G-Recaptcha-Response': token
+            'Captcha-Response': token,
+            'Content-Type': 'application/json'
           },
           method: 'POST'
         });
@@ -200,16 +288,17 @@ class FormBase {
         if (responseCode === 200) {
           form.reset();
           // emit event
-          document.dispatchEvent(new CustomEvent(_constants__WEBPACK_IMPORTED_MODULE_0__.Events.FORM_SUBMITTED_EVENT, {
+          document.dispatchEvent(new CustomEvent(_constants__WEBPACK_IMPORTED_MODULE_1__.Events.FORM_SUBMITTED_EVENT, {
             detail: {
+              data,
               form,
               submitData
             }
           }));
-          this.onSubmit(event, form, submitData);
+          this.onSubmit(event, form, submitData, data);
         } else {
           console.error('Error:', data);
-          document.dispatchEvent(new CustomEvent(_constants__WEBPACK_IMPORTED_MODULE_0__.Events.FORM_SUBMIT_ERROR_EVENT, {
+          document.dispatchEvent(new CustomEvent(_constants__WEBPACK_IMPORTED_MODULE_1__.Events.FORM_SUBMIT_ERROR_EVENT, {
             detail: {
               data,
               form
@@ -219,7 +308,7 @@ class FormBase {
         }
       } catch (e) {
         const error = e;
-        document.dispatchEvent(new CustomEvent(_constants__WEBPACK_IMPORTED_MODULE_0__.Events.FORM_SUBMIT_ERROR_EVENT, {
+        document.dispatchEvent(new CustomEvent(_constants__WEBPACK_IMPORTED_MODULE_1__.Events.FORM_SUBMIT_ERROR_EVENT, {
           detail: {
             error,
             form
@@ -229,7 +318,11 @@ class FormBase {
       }
     };
     try {
-      await grecaptcha.ready(submitFormDataWithGoogleRecaptcha);
+      if (StaticSnapFrontendConfig.captcha_type === 'recaptcha') {
+        await grecaptcha.ready(submitFormDataWithCaptcha);
+      } else {
+        await submitFormDataWithCaptcha();
+      }
     } catch (e) {
       console.error(e);
     }

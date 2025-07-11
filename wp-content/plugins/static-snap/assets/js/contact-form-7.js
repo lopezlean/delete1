@@ -14,6 +14,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @staticsnap/frontend */ "@staticsnap/frontend");
 /* harmony import */ var _staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+
 
 class ContactForm7 extends _staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0__.FormBase {
   extensionMessagesClasses = {
@@ -25,15 +28,29 @@ class ContactForm7 extends _staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0__.For
   constructor() {
     super('[data-static-snap-type="form"][data-static-snap-form-type="contact-form-7"]');
   }
-  onSubmit(_e, form, _submitData) {
-    this.setMessage(form, 'success');
+  onSubmit(_e, form, _submitData, responseData) {
+    const settings = this.getFormSettings(responseData);
+    this.setMessage(form, responseData.type === 'item' && responseData?.data?.saved ? 'success' : 'error', settings);
   }
   onError(_e, form, _error) {
-    this.setMessage(form, 'error');
+    this.setMessage(form, 'error', {
+      messages: {
+        error: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('An error occurred, please try again later.', 'static-snap'),
+        invalid: '',
+        required: '',
+        success: ''
+      }
+    });
   }
-  setMessage(form, type) {
+  setMessage(form, type, settings) {
+    const matchTypeToMessage = {
+      error: settings?.messages?.error,
+      field_error: settings?.messages?.required,
+      invalid_error: settings?.messages?.invalid,
+      success: settings?.messages?.success
+    };
     const noticeElement = this.getNoticeElement(form);
-    const message = this.getNoticeMessageOrRedirect(form, type);
+    const message = matchTypeToMessage[type] || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('An error occurred, please try again later.', 'static-snap');
     noticeElement.textContent = message;
     const messageClass = this.extensionMessagesClasses[type];
     // remove other form classes
@@ -63,6 +80,16 @@ class ContactForm7 extends _staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0__.For
 /***/ ((module) => {
 
 module.exports = StaticSnapFrontendClasses;
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
 
 /***/ })
 

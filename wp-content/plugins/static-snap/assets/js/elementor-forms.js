@@ -14,6 +14,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @staticsnap/frontend */ "@staticsnap/frontend");
 /* harmony import */ var _staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+
 
 class ElementorForms extends _staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0__.FormBase {
   elementorMessagesClasses = {
@@ -25,18 +28,77 @@ class ElementorForms extends _staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0__.F
   constructor() {
     super('[data-static-snap-type="form"][data-static-snap-form-type="elementor"]');
   }
-  onSubmit(_e, form, _submitData) {
-    //console.log('ElementorForms onSubmit', e, form, submitData);
-
-    this.setMessage(form, 'success');
+  onSubmit(_e, form, _submitData, responseData) {
+    const settings = this.getFormSettings(responseData);
+    const knowSubmitActions = ['redirect', 'popup', 'webhook'];
+    this.setMessage(form, responseData.type === 'item' && responseData?.data?.saved ? 'success' : 'error', settings);
+    settings?.submit_actions?.some(action => {
+      if (knowSubmitActions.includes(action)) {
+        if (action === 'redirect') {
+          this.onRedirect(settings);
+        }
+        if (action === 'popup') {
+          this.onPopup(settings);
+        }
+        if (action === 'webhook') {
+          this.onWebhooks(settings, form);
+        }
+      }
+    });
+  }
+  onRedirect(settings) {
+    if (settings.redirect_to) {
+      window.location.href = settings.redirect_to;
+    }
+  }
+  onWebhooks(settings, form) {
+    //get all form data
+    const formData = new FormData(form);
+    settings.webhooks?.forEach(webhook => {
+      fetch(webhook.url, {
+        body: JSON.stringify({
+          ...Object.fromEntries(formData)
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
+      });
+    });
+  }
+  onPopup(settings) {
+    if (!settings.popup || !settings.popup.popup_id || !window.elementorProFrontend || !window.elementorProFrontend.modules || !window.elementorProFrontend.modules.popup) {
+      return;
+    }
+    if (settings.popup?.action === 'close') {
+      window.elementorProFrontend.modules.popup.closePopup({
+        id: settings.popup.popup_id
+      });
+    } else {
+      window.elementorProFrontend.modules.popup.showPopup({
+        id: settings.popup.popup_id
+      });
+    }
   }
   onError(_e, form, _error) {
-    //console.log('ElementorForms onError', e, form, error);
-    this.setMessage(form, 'error');
+    this.setMessage(form, 'error', {
+      messages: {
+        error: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('An error occurred, please try again later.', 'static-snap'),
+        invalid: '',
+        required: '',
+        success: ''
+      }
+    });
   }
-  setMessage(form, type) {
+  setMessage(form, type, settings) {
     const noticeElement = this.getNoticeElement(form);
-    const message = this.getNoticeMessageOrRedirect(form, type);
+    const matchTypeToMessage = {
+      error: settings?.messages?.error,
+      field_error: settings?.messages?.required,
+      invalid_error: settings?.messages?.invalid,
+      success: settings?.messages?.success
+    };
+    const message = matchTypeToMessage[type] || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('An error occurred, please try again later.', 'static-snap');
     noticeElement.textContent = message;
     noticeElement.classList.remove('elementor-message-success', 'elementor-message-error');
     const messageClass = this.elementorMessagesClasses[type];
@@ -62,6 +124,16 @@ class ElementorForms extends _staticsnap_frontend__WEBPACK_IMPORTED_MODULE_0__.F
 /***/ ((module) => {
 
 module.exports = StaticSnapFrontendClasses;
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
 
 /***/ })
 

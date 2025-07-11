@@ -1,12 +1,14 @@
 === Static Snap ===
 Contributors: staticsnap
-Tags: static site, static generator, performance, SEO
+Tags: static site generator, performance, SEO, security, headless
 Requires at least: 6.5.0
-Tested up to: 6.5.0
-Stable tag: 0.1.0
+Tested up to: 6.8.1
+Stable tag: 0.3.3
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
+
+Static Snap converts your WordPress site into a static website, boosting performance, security, scalability, and SEO.
 
 == Description ==
 **Static Snap** is a powerful WordPress plugin that transforms your dynamic WordPress site into a static website, enabling seamless integration and deployment across various hosting services.
@@ -46,6 +48,44 @@ This plugin utilizes third-party services to provide certain functionalities. Be
    - **Terms of Service and Privacy Policy**: [Static Snap Terms of Service](https://staticsnap.com/terms-and-conditions) | [Static Snap Privacy Policy](https://staticsnap.com/privacy-policy)
 
 == Changelog ==
+= 0.3.3 - 2025-06-03 =
+* Bug fixes
+
+= 0.3.2 - 2025-06-03 =
+* Added PowCaptcha integration to maintain privacy-first standards.
+
+= 0.3.1 - 2024-12-19 =
+* Bugs fixes
+
+= 0.3.0 - 2024-12-13 =
+* Add support for WP Forms Lite
+
+= 0.2.9 - 2024-12-11 =
+* Add support for Contact Form 7 email notifications.
+* Fix WP Forms extension name
+
+= 0.2.8 - 2024-12-06 =
+* Add support for Gravity Forms email notifications.
+* Allow to disable forms after they have been enabled.
+
+= 0.2.7 - 2024-12-03 =
+* Add Submit Actions API: Enables sending emails, displaying popups, redirecting, and executing webhooks after a form is submitted. Currently, this feature is exclusive to Elementor forms.
+
+= 0.2.6 - 2024-11-22 =
+* Fetch assets after fetching posts to address Elementor’s uncompiled CSS not generating during build time
+* Ensure the tooltip and menu appear above the admin menu bar when they are too close
+
+= 0.2.5 - 2024-11-19 =
+* Fix: BLOB, TEXT, GEOMETRY or JSON can't have a default value
+
+= 0.2.4 - 2024-11-18 =
+* Fix: Save options issue resolved.
+* Tested up to: WordPress 6.7.0.
+
+= 0.2.3 - 2024-11-18 =
+* First approved WordPress version release.
+* General security fixes.
+
 = 0.1.0 - 2024-09-11 =
 * Initial release of Static Snap.
 

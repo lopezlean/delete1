@@ -1,43 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
-	xmlns:content="http://purl.org/rss/1.0/modules/content/"
-	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:atom="http://www.w3.org/2005/Atom"
-	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
-	>
 
-<channel>
-	<title>quiet-eagle-8f19ae.instawp.xyz</title>
-	<atom:link href="https://lopezlean.github.io/delete1/feed/index.rss" rel="self" type="application/rss+xml" />
-	<link>https://lopezlean.github.io/delete1</link>
-	<description></description>
-	<lastBuildDate>Fri, 11 Oct 2024 07:52:33 +0000</lastBuildDate>
-	<language>en-US</language>
-	<sy:updatePeriod>
-	hourly	</sy:updatePeriod>
-	<sy:updateFrequency>
-	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=6.6.2</generator>
-	<item>
-		<title>Hello world!</title>
-		<link>https://lopezlean.github.io/delete1/hello-world/</link>
-					<comments>https://lopezlean.github.io/delete1/hello-world/#comments</comments>
+		<!DOCTYPE html>
+		<html lang="en">
+			<head>
+				<meta charset="UTF-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				<title>Temporary Website</title>
+				<link rel="stylesheet" href="/wp-content/mu-plugins/zipwp-client-mu/inc/admin/assets/css/site-protection.css">
+			</head>
+			<body>
+				<div class="zipwp-container">
+					<div class="zipwp-row">
+						<div class="zipwp-content">
+							<div class="zipwp-login-container">
+								<div class="zipwp-inner-container">
+									<div class="zipwp-row">
+										<div class="zipwp-content-wrap">
+											<img alt="lock" src="/wp-content/mu-plugins/zipwp-client-mu/inc/admin/assets/images/lock-icon.svg" class="zipwp-password-icon">
+											<h2 class="zipwp-heading">This website is temporary and not intended for live traffic usage.</h3>
+											<p class="zipwp-text">To proceed, kindly type <b>“ok”</b> in the box below.</p>
+											<form class="zipwp-submit-form" id="zipwp-submit-form">
+												<input id="zipwp-input" type="text" placeholder="Enter ok" required="" autofocus="" class="zipwp-form-control">
+												<p class="zipwp-error-message">The text you entered does not match "ok" Please try again.</p>
+												<button type="submit"  class="zipwp-btn zipwp-submit-btn">Submit</button>
+												<p class="zipwp-footer-text">Powered by <a target="_blank" href="https://zipwp.com/">ZipWP</a></p>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="zipwp-image"></div>
+					</div>
+				</div>
+				<input type="hidden" name="zipwp_site_protection_nonce" value="3d56cd355f">
+				<div id="zipwp-data" data-url="/wp-admin/admin-ajax.php"></div>
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+				<script src="/wp-content/mu-plugins/zipwp-client-mu/inc/admin/assets/js/site-protection.js"></script>
+			</body>
+		</html>
 		
-		<dc:creator><![CDATA[vavabizini6982]]></dc:creator>
-		<pubDate>Fri, 11 Oct 2024 07:52:33 +0000</pubDate>
-				<category><![CDATA[Uncategorized]]></category>
-		<guid isPermaLink="false">https://lopezlean.github.io/delete1/?p=1</guid>
-
-					<description><![CDATA[Welcome to WordPress. This is your first post. Edit or delete it, then start writing!]]></description>
-										<content:encoded><![CDATA[
-<p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>
-]]></content:encoded>
-					
-					<wfw:commentRss>https://lopezlean.github.io/delete1/hello-world/feed/</wfw:commentRss>
-			<slash:comments>1</slash:comments>
-		
-		
-			</item>
-	</channel>
-</rss>

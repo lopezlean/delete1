@@ -756,7 +756,7 @@ function isValidAuthority(authority) {
  *
  * @example
  * ```js
- * const path1 = getPath( 'http://localhost:8080/this/is/a/test?query=true' ); // 'this/is/a/test'
+ * const path1 = getPath( '/:8080/this/is/a/test?query=true' ); // 'this/is/a/test'
  * const path2 = getPath( 'https://wordpress.org/help/faq/' ); // 'help/faq'
  * ```
  *
@@ -799,7 +799,7 @@ function isValidPath(path) {
  *
  * @example
  * ```js
- * const queryString = getQueryString( 'http://localhost:8080/this/is/a/test?query=true#fragment' ); // 'query=true'
+ * const queryString = getQueryString( '/:8080/this/is/a/test?query=true#fragment' ); // 'query=true'
  * ```
  *
  * @return {string|void} The query string part of the URL.
@@ -905,7 +905,7 @@ function isValidQueryString(queryString) {
  *
  * @example
  * ```js
- * const pathAndQueryString1 = getPathAndQueryString( 'http://localhost:8080/this/is/a/test?query=true' ); // '/this/is/a/test?query=true'
+ * const pathAndQueryString1 = getPathAndQueryString( '/:8080/this/is/a/test?query=true' ); // '/this/is/a/test?query=true'
  * const pathAndQueryString2 = getPathAndQueryString( 'https://wordpress.org/help/faq/' ); // '/help/faq'
  * ```
  *
@@ -932,7 +932,7 @@ function getPathAndQueryString(url) {
  *
  * @example
  * ```js
- * const fragment1 = getFragment( 'http://localhost:8080/this/is/a/test?query=true#fragment' ); // '#fragment'
+ * const fragment1 = getFragment( '/:8080/this/is/a/test?query=true#fragment' ); // '#fragment'
  * const fragment2 = getFragment( 'https://wordpress.org#another-fragment?query=true' ); // '#another-fragment'
  * ```
  *
@@ -1317,7 +1317,7 @@ var remove_accents_default = /*#__PURE__*/__webpack_require__.n(remove_accents);
 /**
  * Performs some basic cleanup of a string for use as a post slug.
  *
- * This replicates some of what `sanitize_title()` does in WordPress core, but
+ * This replicates some of what `sanitize_title_with_dashes()` does in WordPress core, but
  * is only designed to approximate what the slug will be.
  *
  * Converts Latin-1 Supplement and Latin Extended-A letters to basic Latin
@@ -1335,8 +1335,12 @@ function cleanForSlug(string) {
     return '';
   }
   return remove_accents_default()(string)
+  // Convert &nbsp, &ndash, and &mdash to hyphens.
+  .replace(/(&nbsp;|&ndash;|&mdash;)/g, '-')
   // Convert each group of whitespace, periods, and forward slashes to a hyphen.
   .replace(/[\s\./]+/g, '-')
+  // Remove all HTML entities.
+  .replace(/&\S+?;/g, '')
   // Remove anything that's not a letter, number, underscore or hyphen.
   .replace(/[^\p{L}\p{N}_-]+/gu, '')
   // Convert to lowercase
@@ -1356,7 +1360,7 @@ function cleanForSlug(string) {
  *
  * @example
  * ```js
- * const filename1 = getFilename( 'http://localhost:8080/this/is/a/test.jpg' ); // 'test.jpg'
+ * const filename1 = getFilename( '/:8080/this/is/a/test.jpg' ); // 'test.jpg'
  * const filename2 = getFilename( '/this/is/a/test.png' ); // 'test.png'
  * ```
  *

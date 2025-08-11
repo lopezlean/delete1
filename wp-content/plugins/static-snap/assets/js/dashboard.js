@@ -42168,7 +42168,7 @@ function createMemoryHistory(options) {
     },
     createHref,
     createURL(to) {
-      return new URL(createHref(to), "https://lopezlean.github.io/delete1");
+      return new URL(createHref(to), "/delete1");
     },
     encodeLocation(to) {
       let path = typeof to === "string" ? parsePath(to) : to;
